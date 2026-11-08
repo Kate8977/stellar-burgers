@@ -8,7 +8,6 @@ import { getReturnPath } from '@utils/location';
 import type { ReactElement } from 'react';
 
 type ProtectedRouteProps = {
-  /** Страницы входа и регистрации: их видит только гость. */
   onlyUnAuth?: boolean;
   children: ReactElement;
 };

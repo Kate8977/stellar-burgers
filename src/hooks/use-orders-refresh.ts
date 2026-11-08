@@ -2,11 +2,6 @@ import { useEffect } from 'react';
 
 const ORDERS_REFRESH_MS = 2000;
 
-/**
- * Лента заказов приходит обычным запросом. Пока экран открыт,
- * запрашиваем её сразу и затем каждые пару секунд — так новый заказ
- * появляется без ручного обновления.
- */
 export const useOrdersRefresh = (loadOrders: () => void): void => {
   useEffect((): (() => void) => {
     loadOrders();

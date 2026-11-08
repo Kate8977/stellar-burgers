@@ -88,8 +88,6 @@ const AppContent = ({
 const formatOrderNumber = (value: string | undefined): string =>
   `#${String(value ?? '').padStart(6, '0')}`;
 
-/* Клик по ингредиенту или заказу кладёт в state страницу, с которой пришли.
-   Её показываем под модалкой. Прямой адрес приходит без state — тогда это отдельная страница. */
 const RouteComponent = (): React.JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
