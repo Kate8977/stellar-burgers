@@ -1,7 +1,6 @@
 import { ProfileOrdersUI } from '@ui-pages';
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 
-import { useOrdersRefresh } from '@hooks/use-orders-refresh';
 import {
   fetchProfileOrders,
   selectProfileOrders,
@@ -12,11 +11,9 @@ export const ProfileOrders = (): React.JSX.Element => {
   const dispatch = useDispatch();
   const orders = useSelector(selectProfileOrders);
 
-  const loadOrders = useCallback((): void => {
+  useEffect((): void => {
     void dispatch(fetchProfileOrders());
   }, [dispatch]);
-
-  useOrdersRefresh(loadOrders);
 
   return <ProfileOrdersUI orders={orders} />;
 };

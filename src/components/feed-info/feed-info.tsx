@@ -5,11 +5,13 @@ import { useSelector } from '@services/store';
 
 import type { TOrder } from '@utils-types';
 
+const ORDERS_IN_COLUMN = 20;
+
 const getOrders = (orders: TOrder[], status: string): number[] =>
   orders
     .filter((item) => item.status === status)
     .map((item) => item.number)
-    .slice(0, 20);
+    .slice(0, ORDERS_IN_COLUMN);
 
 export const FeedInfo = (): React.JSX.Element => {
   const feed = useSelector(selectFeed);
@@ -17,7 +19,7 @@ export const FeedInfo = (): React.JSX.Element => {
   const pendingOrders = [
     ...getOrders(feed.orders, 'pending'),
     ...getOrders(feed.orders, 'created'),
-  ].slice(0, 20);
+  ].slice(0, ORDERS_IN_COLUMN);
 
   return (
     <FeedInfoUI readyOrders={readyOrders} pendingOrders={pendingOrders} feed={feed} />

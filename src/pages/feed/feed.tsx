@@ -1,8 +1,7 @@
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { useOrdersRefresh } from '@hooks/use-orders-refresh';
 import { fetchFeeds, selectFeed } from '@services/slices/feed-slice';
 import { useDispatch, useSelector } from '@services/store';
 
@@ -14,7 +13,9 @@ export const Feed = (): React.JSX.Element => {
     void dispatch(fetchFeeds());
   }, [dispatch]);
 
-  useOrdersRefresh(handleGetFeeds);
+  useEffect((): void => {
+    handleGetFeeds();
+  }, [handleGetFeeds]);
 
   if (isLoading && !orders.length) {
     return <Preloader />;
