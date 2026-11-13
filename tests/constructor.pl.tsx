@@ -71,17 +71,21 @@ test.describe('Страница конструктора бургера', () => 
     page,
   }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: BUN_NAME }).click();
-
     const modal = page.locator('#modals');
+
+    await page.getByRole('link', { name: MAIN_NAME }).click();
     await expect(
       modal.getByRole('heading', { name: 'Детали ингредиента' })
     ).toBeVisible();
+    await expect(modal.getByRole('heading', { name: MAIN_NAME })).toBeVisible();
+    await expect(modal.getByText('4242')).toBeVisible();
+    await modal.getByRole('button', { name: 'Закрыть' }).click();
+    await expect(modal.getByRole('heading', { name: 'Детали ингридиента' })).toHaveCount(
+      0
+    );
     await expect(modal.getByRole('heading', { name: BUN_NAME })).toBeVisible();
     await expect(modal.getByText('420')).toBeVisible();
-
     await modal.getByRole('button', { name: 'Закрыть' }).click();
-
     await expect(modal.getByRole('heading', { name: 'Детали ингредиента' })).toHaveCount(
       0
     );

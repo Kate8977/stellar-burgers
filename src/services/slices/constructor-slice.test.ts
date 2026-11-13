@@ -58,14 +58,15 @@ describe('редьюсер конструктора бургера', (): void =>
     expect(withFilling.ingredients).toEqual([addFilling.payload]);
   });
 
-  test('removeIngredient удаляет начинку по её id', (): void => {
-    const added = constructorReducer(undefined, addIngredient(firstFilling));
-    const filling = added.ingredients[0];
+  test('removeIngredient удаляет выбранную начинку и сохраняет остальные', (): void => {
+    const withFirst = constructorReducer(undefined, addIngredient(firstFilling));
+    const withBoth = constructorReducer(withFirst, addIngredient(secondFilling));
+    const firstAdded = withBoth.ingredients[0];
+    const secondAdded = withBoth.ingredients[1];
 
-    expect(constructorReducer(added, removeIngredient(filling.id))).toEqual({
-      bun: null,
-      ingredients: [],
-    });
+    expect(
+      constructorReducer(withBoth, removeIngredient(firstAdded.id)).ingredients
+    ).toEqual([secondAdded]);
   });
 
   test('moveIngredient меняет порядок начинок и не выходит за границы', (): void => {
